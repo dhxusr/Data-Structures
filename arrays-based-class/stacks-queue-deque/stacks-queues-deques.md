@@ -8,18 +8,8 @@
   
   fundamental operations in this data structure.
   
-  push: insert an object at the end of the stack.
-  pop: return the top object of the stack and remove it.
-                            
-			                      -
-                          - -
-  inserting plates ->   - - -
-                      - - - -
-
-                   -
-	                 - -
-  poping plates -> - - -
-                   - - - -
+  - push: insert an object at the end of the stack.
+  - pop: return the top object of the stack and remove it.
 
   the stack is the simplest of the data structures but they are also among the most important.
   
@@ -66,11 +56,11 @@
   so we can insert a object at the back and then remove it from the back, same in the front.
   
   supported methods:
-  D.add_first(e): Add element e to the front of the deque.
-  D.add_last(e): Add element e to the back of the deque.
-  D.delete_first(): Remove and return the first element from deque; error if empty.
-  D.delete_last(): Remove and return the last element from deque; error if empty.
-  D.first(): Return a refference of the first element in the deque; error if empty.
-  D.last(): Return a refference of the last element in the deque; error if emtpy.
-  D.is_empty(): Return True if the deque is emtpy.
-  len(D): Return the number of elements in the deque.
+  - D.add_first(e): Add element e to the front of the deque.
+  - D.add_last(e): Add element e to the back of the deque.
+  - D.delete_first(): Remove and return the first element from deque; error if empty.
+  - D.delete_last(): Remove and return the last element from deque; error if empty.
+  - D.first(): Return a refference of the first element in the deque; error if empty.
+  - D.last(): Return a refference of the last element in the deque; error if emtpy.
+  - D.is_empty(): Return True if the deque is emtpy.
+  - len(D): Return the number of elements in the deque.
