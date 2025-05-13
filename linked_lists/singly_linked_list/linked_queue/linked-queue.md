@@ -1,30 +1,39 @@
-Que es esta estructura?
-Es una cola (FIFO) pero la forma en la que se manipulan los datos desde dentro es con nodos enlazados.
+# Linked List Queue Implementation (FIFO)
 
-Como funciona?
-En este caso, para simular el comportamiento de una cola, podemos aprovecharnos de una propiedad de las listas
-enlazadas y es que se guarda referencia de su ultimo elemento, Por que hago mencion al ultimo elemento?
-ya que el comportamiento FIFO se basa en que el elemento con mas tiempo es el que sale primero si
-enlazamos los nodos(agregamos datos) al head de la lista, el elemento mas viejo va a estar en el ultimo
-nodo, y no hay forma eficiente para eliminar ese ultimo nodo usando una lista enlazada, lo que si podemos hacer
-es agregar nodos al final de la lista, con la referencia de tail, esto nos permite que el elemento mas viejo
-sea el referente del head, osea el primer nodo de la lista, el cual si podemos eliminar de forma eficiente.
-entonces se puede ver como agregar los datos a la derecha de la lista, en vez de a la izquierda.
+## What is this structure?
+This is a **Queue (FIFO)** implementation that internally uses **linked nodes** for data manipulation.
 
-agregar elementos a la izquierda
+## How does it work?
+To simulate queue behavior, we leverage a key property of linked lists: 
+- We maintain a reference to the **tail** (last element)
 
-            HEAD                                 TAIL
-[nuevo] -> [elemento]->[elemento]->[elemento]->[primero]
+### Why focus on the tail?
+In FIFO (First-In-First-Out) systems:
+- The oldest element exits first
+- If we added nodes at the **head**:
 
+```
+[new] -> [element] -> [element] -> [oldest] (tail)
+```
+- The oldest element would be at the tail
+- No efficient way to remove the tail node in a linked list
 
-agregar elementos a la derecha
+### The Solution: Add at tail
+By adding nodes at the **tail** instead:
 
- HEAD                                TAIL
-[primero]->[elemento]->[elemento]->[elemento] -> [nuevo]
+```
+ (head)                  (tail)
+[first] -> [element] -> [element] -> [new]
+```
+- The oldest element stays at the **head**
+- We can efficiently **remove from head** (O(1) operation)
+- New elements are always **appended at the tail**
 
-Este enfoque nos permite simular el comportamiento de una cola de forma eficiente.
+## What did i learned
+1. **Linked list flexibility**: Demonstrated through this queue implementation.
+2. **Queue mechanics**: Reinforced understanding of FIFO principles.
+3. **Efficiency**: Achieved O(1) operations by strategically choosing insertion points.
 
-Que aprendi?
-Al implementar esta estructura, pude ver la flexibilidad de una lista enlazada.
-reforze mas mi entendimiento sobre las colas.
-
+**Implementation Note**:
+This approach mirrors real-world queues (like waiting lines) where new entries join at the end while
+service occurs at the front.
