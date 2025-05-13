@@ -1,19 +1,38 @@
-Qué es esta estructura?
-Esta es una implementación de una pila (stack), pero que internamente funciona como una lista enlazada.
+# Linked List Stack Implementation (LIFO)
 
-¿Qué significa eso? Que al usar la clase LinkedStack, se comporta como cualquier pila (LIFO),
-pero los datos se almacenan dinámicamente en memoria mediante nodos enlazados.
+## What is this structure?
+This is a **Stack (LIFO)** implementation that internally uses a **linked list** for data storage.
 
-Esto es interesante porque permite inserciones y eliminaciones rápidas y eficientes, sin necesidad de
-redimensionar listas ni mover elementos, ya que solo se modifican punteros (especialmente en el nodo frontal).
+## How does it work
+- Behaves like any standard stack (Last-In-First-Out)
+- Data is stored dynamically in memory through linked nodes
+- **No resizing** needed - elements aren't moved, only pointers are modified
 
-¿Qué aprendí al implementarla?
-Reforcé mi comprensión sobre listas enlazadas y cómo aplicar su estructura interna a otras abstracciones
-como una pila.
-También confirmé que entiendo bien el comportamiento y operaciones clave de una pila: push, pop, top.
+### Visual Representation
 
-¿Qué mejoraría?
-Para una pila sin límite de almacenamiento, esta estructura es ideal.
+TOP (always points to newest)
+↓
+[newest] -> [node] -> [node] -> [oldest] -> null
 
-Pero si se quisiera implementar una pila circular con límite, esta estructura no serviría tal cual,
-y habría que adaptarla o elegir otra base (como un array circular o una lista doblemente enlazada).
+## Performance Advantages
+- **O(1) operations** for all stack methods:
+  - `push()`: Add to head
+  - `pop()`: Remove from head  
+  - `top()`: Peek at head
+- No wasted memory (dynamic allocation)
+- No element shifting required
+
+## What did i Learned
+1. **Linked list mastery**: Reinforced understanding of node-based structures
+2. **Stack mechanics**: Solidified LIFO principle and core operations
+3. **Abstraction power**: Saw how to build higher-level structures using basic components
+
+## Limitations and Improvements
+ **Ideal for**: Unlimited-size stacks  
+ **Not ideal for**: 
+- Circular stacks (would need adaptation)
+- Size-limited stacks 
+
+**Implementation Note**:
+The head pointer acts as the stack's top,
+making all operations focus on one end for maximum efficiency.
