@@ -363,32 +363,3 @@ if __name__ == "__main__":
 
     print("first", pl.first().element())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-What is this?
-
-How does it works?
-
-Why did i chose this approach
-
-What did i learned?
-
-What would i improve?
-"""
