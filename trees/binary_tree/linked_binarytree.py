@@ -21,7 +21,7 @@ For linked binary trees, a reasonable set of update methods to supports for gene
   leaf.
 """
 
-from binary_tree_ADT.binary_tree import BinaryTree
+from binary_tree.binary_tree_ADT.binary_tree import BinaryTree
 
 
 class LinkedBinaryTree(BinaryTree):
@@ -137,7 +137,7 @@ class LinkedBinaryTree(BinaryTree):
     Raise ValueError if Position p is invalid or p already has a right child."""
 
     node = self._validate(p)
-    if node._left is not None:
+    if node._right is not None:
       raise ValueError("Right child exists")
 
     self._size += 1
@@ -198,4 +198,14 @@ class LinkedBinaryTree(BinaryTree):
       t2._root = None
       t2._size = 0
 
-    
+
+if __name__ == "__main__":
+  tree = LinkedBinaryTree()
+
+  root = tree._add_root(1)
+  two = tree._add_left(root, 2)
+  three = tree._add_right(root, 3) 
+  tree._add_left(two, 4)
+  tree._add_right(two, 5)
+  print(tree.root().element())
+  print(tree.left(two).element())

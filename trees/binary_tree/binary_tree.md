@@ -159,3 +159,111 @@ Operation that removes an external node and its parent node, used in the justifi
           
   ```
   A linked structure for representing: (a) a single node; (b) a binary tree.
+
+- Array-Based Binary Tree
+  An alternative representation of a binary tree T is based on a way of numbering the positions of T. For every
+  position p of T, lef f(p) be the integer defined as follows.
+
+  * if p is the root, the f(p) = 0.
+  * if p is the left child of position q, then f(p) = 2f(q) + 1
+  * if p is the right child of position q, then f(p) = 2f(q) + 2
+
+  The numbering function f is known as a level numbering of the positions in a binary tree T, for it numbers
+  the positions on each level of T in increasing order from left to right. Note well that the level numbering
+  is based on potential positions within the tree, not actual positions of a given tree, so they are not
+  necessarily consecutive. for example, in figure (b) there are no nodes with level numbering 13 or 14, because the node
+  with level numbering 6 has no children.
+
+  ```  
+  (a)                   
+                        0
+                      [   ]                         
+                  /           \ 
+                 /             \
+              1 /               \ 2
+            [   ]               [   ]               
+           /     \             /     \
+         3/       \4         5/       \6
+        [ ]       [ ]       [ ]       [ ]          
+       /   \     /  \       /   \     /   \ 
+     7/     \8 9/    \10 11/     \12 /     \ 
+     [ ]   [ ] [  ]  [ ] [ ]    [ ] [ ]   [ ]     
+                                    13     14
+            
+  (b)
+             
+                        0
+                      [ - ]                         
+                  /           \ 
+                 /             \
+              1 /               \ 2
+            [ / ]               [ + ]               
+           /     \             /     \
+         3/       \4         5/       \6
+        [x]       [+]       [x]       [6]          
+       /   \     /  \       /   \        
+     7/     \8 9/    \10 11/     \12       
+     [+]   [3] [-]  [2] [3]      [-]          
+    /   \     /   \             /   \              
+   /     \   [9]  [5]        25/     \26 
+  [3]    [1] 19   20         [7]    [4]
+  15     16
+  ```
+  The level numbering function f suggests a representation of a binary tree T by means of an array-based
+  structure A (such as a python list), with the element at position p of T stored at index f(p) of the array.
+  example: 
+  ```
+                      [ / ]                         
+                  /           \ 
+                 /             \
+              1 /               \ 2
+            [ x ]               [ + ]               
+           /     \             /     \
+         3/       \4         5/       \6
+        [+]       [4]       [-]       [2]          
+       /   \               /   \        
+     7/     \8          11/     \12       
+    [3]     [1]         [9]     [5]          
+
+  [/][x][+][4][-][2][3][1][ ][ ][9][5][ ][ ][ ]
+   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
+  ```
+  One advantage of an array-based representation of a binary tree is that a position p can be represented by
+  the single integer f(p), and that position-based methods such as root, parent, left, and right can be
+  implemented using simple arithmetic operations on the number f(p). Based on our formula for the level numbering
+  the left child of p has index 2f(p)+1, the right child of p has index 2f(p) + 2, and the parent of p has index
+  (f(p)-1)/2.
+
+  The space usage of an array-based representation depends greatly on the shape of the tree. Let n be the number
+  of nodes of T, and let fm be the maximum value of f(p) over all the nodes of T. The array A requires length
+  N = 1 + fm, since elements range from A[0] to A[fm]. Note that A may have a number of empty cells that do not
+  refer to existing nodes of T. In fact, in the worst case, N = 2^n -1.
+
+### Linked Structure for General Trees
+When representating a binary tree with a linked structure, each node explicitly maintains fields left and right
+as references to individual children. For a general tree, there is no a priori limit on the number of children
+that a node may have. A natural way to realize a general tree T as a linked structure is to have each node
+store a single container of references to its children. For example a children field of a node can be a list
+of references to the children of the node (if any).
+```
+Node
+[parent]
+[element]
+[children]       
+
+
+[parent] --> None
+[element] --> New York
+[children]
+          \
+           \
+        [ * ][ * ][ * ][ * ]
+          |    |    |    | 
+          |    |    |    | 
+         [p]  [p]  [p]  [p]
+         [e]  [e]  [e]  [e]
+         [c]  [c]  [c]  [c]
+```
+
+## Tree Traversal Algorithms
+  
