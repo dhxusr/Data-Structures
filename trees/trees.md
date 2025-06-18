@@ -16,12 +16,14 @@ also allows us to define a tree recursively such that a tree T is either empty o
 root of T, and a (possible empty) set of subtrees whose roots are the children of r.
 
 ### Other Node Relationship
-Two nodes that are children of the same parent are siblings. A node v is external if v has no children. A node v
-is internal if it has one or more children. External nodes are also known as leaves.
+- Two nodes that are children of the same parent are siblings.
+- A node v is external if v has no children.
+- A node v is internal if it has one or more children.
+- External nodes are also known as leaves.
 
 A node u is an ancestor of a node v if u is the parent of the parent of v. Conversely, we say that a node v is
 descendant of a node u if u is an ancestor of v.
-The subtree of T rooted at a node v is the tree consisting of all the descendant of v in T (including v itself).
+A subtree of T is a "tree" rooted at a node v consisting of all the descendant of v in T (including v itself).
 
 ### Edges and Paths in Trees
 * Edge: An edge of tree T is a pair of nodes (u, v) such that u is the parent of v, or viceversa. 
@@ -33,16 +35,16 @@ The subtree of T rooted at a node v is the tree consisting of all the descendant
                    --------------- [/user/rt/courses/]---------------
                    |                                                |
                    | PARENT/ANCESTOR                                |
-      ----------[cs016]------------                         -----[cs252/]-----
+      ----------[cs016]------------                         -----[cs252/]----- EDGE
       |            |              |                         |                |
       |            |              |CHILD                    |                |
   [grades]   [homeworks/]      [programs/]           ----[projects/]----    [grades]
              |     |    |      |    |    |           |                 |
              |     |    |      |    |    |           |                 |
-           [hw1] [hw2] [hw3] [pr1] [pr2] [pr3]   [papers/]         [demos/]
+           [hw1] [hw2] [hw3] [pr1] [pr2] [pr3]   [papers/]         [demos/] INTERNAL NODE
                               DECENDANTS         |       |             |
                                                  |       |             |
-                                            [buylow] [sellhigh]     [market]
+                                      LEAVES [buylow] [sellhigh]     [market] EXTERNAL NODE
 
 ```
 
@@ -51,12 +53,39 @@ A tree is ordered if there is a meningful linear order among the children of eac
 identify the children of a node as being first, second, third, and so on. Such an order is usually visualized
 by arranging siblings left to right, according to their order
 
-### Dept
+### Dept of a node
 The depth of a node is the number of ancestors of the node, excluding the node itself.
 * if p is the root, then the depth is 0.
 * otherwise, the depth is one plus the depth of the parent of p.
 
-### Height
+### Height of a tree
 The height of a tree if the maximum of the dephts of its leaf position.
 * the height of a leaf is 0.
 * the height of a node is one more than the maximum of the heights of its children.
+
+
+### Linked Structure for General Trees
+When representating a binary tree with a linked structure, each node explicitly maintains fields left and right
+as references to individual children. For a general tree, there is no a priori limit on the number of children
+that a node may have. A natural way to realize a general tree T as a linked structure is to have each node
+store a single container of references to its children. For example a children field of a node can be a list
+of references to the children of the node (if any).
+```
+Node
+[parent]
+[element]
+[children]       
+
+
+[parent] --> None
+[element] --> New York
+[children]
+          \
+           \
+        [ * ][ * ][ * ][ * ]
+          |    |    |    | 
+          |    |    |    | 
+         [p]  [p]  [p]  [p]
+         [e]  [e]  [e]  [e]
+         [c]  [c]  [c]  [c]
+```

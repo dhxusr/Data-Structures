@@ -71,6 +71,7 @@ class LinkedBinaryTree(BinaryTree):
   def __init__(self) -> None:
     self._root = None
     self._size = 0
+    self._sentinel = self._Node(None, left=self._root)
 
   #-------------------- public accessors --------------------#
   def __len__(self) -> int:
@@ -113,7 +114,7 @@ class LinkedBinaryTree(BinaryTree):
       raise ValueError("Root exists.")
 
     self._size = 1
-    self._root = self._Node(e)
+    self._root = self._Node(e, self._sentinel)
     return self._make_position(self._root)
 
   def _add_left(self, p, e) -> Position:
@@ -161,8 +162,8 @@ class LinkedBinaryTree(BinaryTree):
     if self.num_children(p) == 2:
       raise ValueError("Position has two children")
 
-    child = node._left if node._left else node._right
-    if child is not None:
+    child = node._left if node._left is not self._sentinel else node._right
+    if child is not self._sentinel:
       child._parent = node._parent
     if node is self._root:
       self._root = child
@@ -196,16 +197,99 @@ class LinkedBinaryTree(BinaryTree):
       t2._root._parent = node
       node._right = t2._root
       t2._root = None
-      t2._size = 0
+      # t2._size = 0
 
+  def _delete_subtree(self, p):
+    """Removes the entire subtree rooted at position p."""
 
+    self._validate(p)
+    parent = self.parent(p)
+    number_of_nodes = 0
+    for _ in self._subtree_inorder(p):
+      number_of_nodes += 1
+
+    parent_node = self._validate(parent)
+    if self.left(parent) == p:
+      parent_node._left = None
+    elif self.right(parent) == p:
+      parent_node._right = None
+
+    self._size -= number_of_nodes
+
+  def _swap(self, p, q):
+    """Restructures the tree so that the node referenced by p takes the place of the node referenced by q
+    and vice versa.
+    """    
+    p = self._validate(p)
+    q = self._validate(q)
+    if p is self._root:
+      self._root = q
+    elif q is self._root:
+      self._root = p
+
+    if p._parent is q._parent:
+      if p is p._parent._left:
+        p._parent._left = q
+        p._parent._right = p
+      else:
+        p._parent._left = p
+        p._parent._right = q
+
+    elif p._parent is q or q._parent is p:
+      parent = q if p._parent is q else p
+      children = p if parent is q else q
+
+      if parent._parent:
+        if parent is parent._parent._left:
+          parent._parent._left = children
+        else:
+          parent._parent._right = children
+      children._parent = parent._parent
+
+      if children is parent._left:
+        parent._left = parent
+      else:
+        parent._right = parent
+      parent._parent = children      
+
+    else:
+      if p._parent:
+        if p is p._parent._left:
+          p._parent._left = q
+        else:
+          p._parent._right = q
+
+      if q._parent:
+        if q is q._parent._left:
+          q._parent._left = p
+        else:
+          q._parent._right = p
+
+      p._parent, q._parent = q._parent, p._parent
+
+    p._left, p._right, q._left, q._right = q._left, q._right, p._left, p._right
+
+    if p._left:
+      p._left._parent = p
+    if p._right:
+      p._right._parent = p
+
+    if q._left:
+      q._left._parent = q
+    if q._right:
+      q._right._parent = q
+
+    
 if __name__ == "__main__":
   tree = LinkedBinaryTree()
-
+  tree2 = LinkedBinaryTree()
+  root2 = tree2._add_root(10)
   root = tree._add_root(1)
   two = tree._add_left(root, 2)
   three = tree._add_right(root, 3) 
-  tree._add_left(two, 4)
-  tree._add_right(two, 5)
-  print(tree.root().element())
-  print(tree.left(two).element())
+  four = tree._add_left(two, 4)
+  five = tree._add_right(two, 5)
+  six = tree._add_left(three, 6)
+  tree._add_right(three, 7)
+
+  tree._attach(two, tree, tree2)

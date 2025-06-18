@@ -4,11 +4,13 @@ A binary tree is an ordered tree with the following properties:
 - Each child node is labeled as being either left child or right child.
 - A left child precedes a right child in the order of children of a node.
 
-The subtree rooted at a left of right child of an internal node v is called left subtree or right subtree,
-respectively, of v. A binary tree is proper if each node has either zero or two children. Some people also
-refer to such trees as being full binary trees. Thus, in a proper binary tree, every internal node has exactly
-two children.
-A binary tree that is not proper is improper
+- The subtree rooted at a left or right child of an internal node v is called left subtree or right subtree,
+  respectively, of v.
+
+- A binary tree is proper if each node has either zero or two children. also refer as being full binary trees.
+  in a proper binary tree, every internal node has exactly two children.
+
+- A binary tree that is not proper is improper.
 
 
 ```
@@ -68,7 +70,7 @@ number of internal nodes, and height of T, repectively. Then T has the following
 Also, if T is proper, then T has the following properties:
 - 2h+1 <= n <= 2^h+1 - 1
 - h+1 <= ne <= 2^h
-- h <= ni <= 2^h - 1
+- h <= ni <= 2^h-1
 - log(n+1)-1 <= h <= (n-1)/2
 
 ### Relating Internal Nodes to External Nodes in a Proper Binary Tree
@@ -213,6 +215,7 @@ Operation that removes an external node and its parent node, used in the justifi
   structure A (such as a python list), with the element at position p of T stored at index f(p) of the array.
   example: 
   ```
+                        0
                       [ / ]                         
                   /           \ 
                  /             \
@@ -225,7 +228,7 @@ Operation that removes an external node and its parent node, used in the justifi
      7/     \8          11/     \12       
     [3]     [1]         [9]     [5]          
 
-  [/][x][+][4][-][2][3][1][ ][ ][9][5][ ][ ][ ]
+  [/][x][+][+][4][-][2][3][1][ ][ ][9][5][ ][ ]
    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
   ```
   One advantage of an array-based representation of a binary tree is that a position p can be represented by
@@ -238,32 +241,4 @@ Operation that removes an external node and its parent node, used in the justifi
   of nodes of T, and let fm be the maximum value of f(p) over all the nodes of T. The array A requires length
   N = 1 + fm, since elements range from A[0] to A[fm]. Note that A may have a number of empty cells that do not
   refer to existing nodes of T. In fact, in the worst case, N = 2^n -1.
-
-### Linked Structure for General Trees
-When representating a binary tree with a linked structure, each node explicitly maintains fields left and right
-as references to individual children. For a general tree, there is no a priori limit on the number of children
-that a node may have. A natural way to realize a general tree T as a linked structure is to have each node
-store a single container of references to its children. For example a children field of a node can be a list
-of references to the children of the node (if any).
-```
-Node
-[parent]
-[element]
-[children]       
-
-
-[parent] --> None
-[element] --> New York
-[children]
-          \
-           \
-        [ * ][ * ][ * ][ * ]
-          |    |    |    | 
-          |    |    |    | 
-         [p]  [p]  [p]  [p]
-         [e]  [e]  [e]  [e]
-         [c]  [c]  [c]  [c]
-```
-
-## Tree Traversal Algorithms
-  
+   
